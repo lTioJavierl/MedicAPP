@@ -1,0 +1,21 @@
+th,
+td {
+  text-align: center;
+  vertical-align: middle;
+}
+.custom-input {
+  border: 1px solid black; /* Define el borde negro */
+  padding: 4px; /* Añade un poco de relleno para separar el texto del borde */
+}
+.progress {
+  width: 100%;
+  background-color: #f2f2f2;
+}
+
+.progress-bar {
+  height: 30px;
+  background-color: #4CAF50;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}

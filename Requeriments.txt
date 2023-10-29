@@ -1,0 +1,4 @@
+django == 4.2.6
+python == 3.11
+pip install django-admin-interface
+npm install bootstrap@5.3.2

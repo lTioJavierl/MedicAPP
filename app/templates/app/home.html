@@ -1,0 +1,43 @@
+{% extends 'app/Index.html' %}
+
+{% block  titulo %}Centro Médico Galenos{% endblock  %}
+
+{% block contenido %}
+<div class="container text-center mt-5">
+  <div class="row">
+    <!-- Gestion de médicos -->
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <i class="bi bi-person fs-0" style="font-size: 5em;"></i><!-- Icono de personas -->
+          <h5 class="card-title"></i><strong>Gestión de médicos o profesionales</strong></h5> 
+          <p class="card-text">Administra la información de los médicos y profesionales de tu centro médico.</p>
+          <a href="Medico" class="btn btn-lg btn-block btn-outline-primary">Gestionar Médicos</a>
+        </div>
+      </div>
+    </div>
+    <!-- Gestion de pacientes -->
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <i class="bi bi-calendar-check fs-1" style="color: black;"></i><!-- Icono de personas en fila -->
+          <h5 class="card-title"></i><strong>Gestión de pacientes</strong></h5> 
+          <p class="card-text">Administra la información de los pacientes y sus historias clínicas.</p>
+          <a href="Pacientes" class="btn btn-lg btn-block btn-outline-primary">Gestionar Pacientes</a>
+        </div>
+      </div>
+    </div>
+    <!-- Gestion de reserva de horas -->
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <i class="bi bi-bookmark-check fs-1" style="color: black;"></i><!-- Icono de calendario de eventos -->
+          <h5 class="card-title"></i><strong>Gestión de reserva de horas</strong></h5> 
+          <p class="card-text">Facilita la programación y gestión de citas y reservas de horas médicas.</p>
+          <a href="Reservar" class="btn btn-lg btn-block btn-outline-primary">Reservar Hora</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

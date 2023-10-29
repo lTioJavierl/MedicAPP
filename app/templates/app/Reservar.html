@@ -1,0 +1,50 @@
+{% extends 'app/Index.html' %}
+
+{% block  titulo %}Gestion Reservas{% endblock  %}
+
+{% block contenido %}
+
+<div style="margin: 0;" class="row justify-content-center">
+    <h2 style="text-align: center;"><strong>Lista Agendas</strong></h2>
+    <div class="card" style="border-color: black;">
+        <div class="table-responsive py-2">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Rut Medico</th>
+                        <th>Rut Paciente</th>
+                        <th>Bloque</th>
+                        <th>Box</th>
+                        <th>Fecha Hora Solicitud</th>
+                        <th>Fecha Atencion</th>
+                        <th>Estado Reserva</th>
+                        <th>Tarifa Atencion</th>
+                        <th colspan="3">Opciones Reservas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in Agendas %}
+                    <tr>
+                        <td>{{a.RutProfesional}}</td>
+                        <td>{{a.RutPaciente}}</td>
+                        <td>{{a.IdBloque}}</td>
+                        <td>{{a.IdBox}}</td>
+                        <td>{{a.FechaHoraSolicitud}}</td>
+                        <td>{{a.FechaAtencion}}</td>
+                        <td>{{a.Estado}}</td>
+                        <td>${{a.Tarifa}}</td>
+                        <td><a href="confirmarReserva/{{a.id}}" class="btn btn-success btn-sm text-white">Confirmar</a></td>
+                        <td><a href="anularReserva/{{a.id}}" class="btn btn-primary btn-sm text-white">Anular</a></td>
+                        <td><a href="eliminarReserva/{{a.id}}" class="btn btn-danger btn-sm text-white">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br>
+<div class="d-grid gap-2">
+    <a href="RegistrarReserva" class="btn btn-success text-black">Registrar Reserva</a>
+</div>
+{% endblock %}
