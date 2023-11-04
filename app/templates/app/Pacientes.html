@@ -2,6 +2,29 @@
 
 {% block  titulo %}Gestion Pacientes{% endblock  %}
 
+{% block js %}
+
+<script>
+    function eliminarPaciente(id) {
+        Swal.fire({
+            "title": "¿Estas seguro?",
+            "text": "Esta accion no se puede deshacer",
+            "icon": "question",
+            "showCancelButton": "Cancelar",
+            "confirmButtonText": "Eliminar",
+            "reverseButtons": true,
+            "confirmButtonColor": "#dc3545",
+            "cancelButtonColor": "#007bff"
+        }).then(function(result){
+            if(result.isConfirmed){
+                window.location.href = "eliminarPaciente/"+ id
+            }
+        })
+    }
+</script>
+
+{% endblock %}
+
 {% block contenido %}
 <div class="row">
     <div class="col=sm=12 col-md-6 col-lg-4 col-xl-4">
@@ -123,7 +146,7 @@
                             <td>{{p.Nombres}} {{p.ApellidoM}} {{p.ApellidoP}}</td>
                             {% endif %}
                             <td>{{p.NombreSocial}}</td>
-                            <td><a href="eliminarPaciente/{{p.id}}" class="btn btn-danger btn-block text-white">Eliminar</a></td>
+                            <td><a href="#" onclick="eliminarPaciente({{p.id}})" class="btn btn-danger btn-block text-white">Eliminar</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

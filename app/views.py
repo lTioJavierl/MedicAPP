@@ -3,6 +3,7 @@
 from django.shortcuts import render, redirect
 from .models import Profesional, Ciudad, Especialidad, Usuario
 from .models import Prevision, Paciente, Agenda, Bloque, Box
+from django.contrib import messages
 
 def home(request):
     """Ruta pagina home"""
@@ -50,22 +51,24 @@ def registrarmedico(request):
         Tarifa = tarifa,
         Estado = estado,
         FechaRegistro = fecharegistro)
+    messages.success(request, "Medico registrado con exito")
     return redirect('Medico')
 
 def eliminarmedico(request, id):
     """Funcion eliminar medico"""
     medicosd = Profesional.objects.get(id = id)
     medicosd.delete()
+    messages.success(request, "Medico eliminado con exito")
 
     return redirect('Medico')
 
 def pacientes(request):
     """Ruta pagina pacientes"""
-    pacientes = Paciente.objects.all()
+    pacientes1 = Paciente.objects.all()
     ciudades = Ciudad.objects.all()
     usuarios = Usuario.objects.all()
     previsiones = Prevision.objects.all()
-    return render(request, 'app/Pacientes.html', {"Pacientes": pacientes, "Ciudades": ciudades,
+    return render(request, 'app/Pacientes.html', {"Pacientes": pacientes1, "Ciudades": ciudades,
                   "Usuarios": usuarios, "Previsiones": previsiones})
 
 def registrarpaciente(request):
@@ -104,12 +107,15 @@ def registrarpaciente(request):
         Email = email,
         Telefono = telefono,
         Direccion = direccion)
+    messages.success(request, "Paciente registrado con exito")
     return redirect('Pacientes')
 
 def eliminarpaciente(request, id):
     """Funcion eliminar paciente"""
     paciente_e = Paciente.objects.get(id = id)
     paciente_e.delete()
+    messages.success(request, "Paciente eliminado con exito")
+
     return redirect('Pacientes')
 
 def reservar(request):
@@ -153,26 +159,37 @@ def nuevareserva(request):
         Estado=estado,
         Tarifa=tarifa
     )
+    messages.success(request, "Reserva agendada con exito")
     return redirect('Reservar')
 
 def eliminarreserva(request, id):
     """Funcion eliminar reserva"""
     reserva = Agenda.objects.get(id = id)
     reserva.delete()
+    messages.success(request, "Reserva eliminada con exito")
+
     return redirect('Reservar')
 
 def anular_reserva(request, id):
     """Funcion anular reserva"""
     reserva = Agenda.objects.get(id = id)
-    reserva.Estado = "Anulada"
-    reserva.save()
+    if reserva.Estado == "Anulada" or reserva.Estado == "anulada":
+        messages.error(request, "Reserva ya se encuentra anulada")
+    else:
+        reserva.Estado = "Anulada"
+        reserva.save()
+        messages.success(request, "Reserva anulada con exito")
     return redirect('Reservar')
 
 def confirmar_reserva(request, id):
     """Funcion anular reserva"""
     reserva = Agenda.objects.get(id = id)
-    reserva.Estado = "Confirmada"
-    reserva.save()
+    if reserva.Estado == "Confirmada" or reserva.Estado == "confirmada":
+        messages.error(request, "Reserva ya se encuentra confirmada")
+    else:
+        reserva.Estado = "Confirmada"
+        reserva.save()
+        messages.success(request, "Reserva confirmada con exito")
     return redirect('Reservar')
 
 def index(request):

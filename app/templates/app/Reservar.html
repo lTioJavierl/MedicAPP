@@ -2,6 +2,29 @@
 
 {% block  titulo %}Gestion Reservas{% endblock  %}
 
+{% block js %}
+
+<script>
+    function eliminarReserva(id) {
+        Swal.fire({
+            "title": "¿Estas seguro?",
+            "text": "Esta accion no se puede deshacer",
+            "icon": "question",
+            "showCancelButton": "Cancelar",
+            "confirmButtonText": "Eliminar",
+            "reverseButtons": true,
+            "confirmButtonColor": "#dc3545",
+            "cancelButtonColor": "#007bff"
+        }).then(function(result){
+            if(result.isConfirmed){
+                window.location.href = "eliminarReserva/"+ id
+            }
+        })
+    }
+</script>
+
+{% endblock %}
+
 {% block contenido %}
 
 <div style="margin: 0;" class="row justify-content-center">
@@ -11,8 +34,8 @@
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>Rut Medico</th>
-                        <th>Rut Paciente</th>
+                        <th>Medico</th>
+                        <th>Paciente</th>
                         <th>Bloque</th>
                         <th>Box</th>
                         <th>Fecha Hora Solicitud</th>
@@ -25,17 +48,17 @@
                 <tbody>
                     {% for a in Agendas %}
                     <tr>
-                        <td>{{a.RutProfesional}}</td>
-                        <td>{{a.RutPaciente}}</td>
+                        <td>{{a.RutProfesional.Nombres}} {{a.RutProfesional.ApellidoP}}</td>
+                        <td>{{a.RutPaciente.Nombres}} {{a.RutPaciente.ApellidoP}}</td>
                         <td>{{a.IdBloque}}</td>
                         <td>{{a.IdBox}}</td>
                         <td>{{a.FechaHoraSolicitud}}</td>
                         <td>{{a.FechaAtencion}}</td>
                         <td>{{a.Estado}}</td>
                         <td>${{a.Tarifa}}</td>
-                        <td><a href="confirmarReserva/{{a.id}}" class="btn btn-success btn-sm text-white">Confirmar</a></td>
+                        <td><a href="confirmarReserva/{{a.id}}" onclick="confirmarReserva({{a.id}})" class="btn btn-success btn-sm text-white">Confirmar</a></td>
                         <td><a href="anularReserva/{{a.id}}" class="btn btn-primary btn-sm text-white">Anular</a></td>
-                        <td><a href="eliminarReserva/{{a.id}}" class="btn btn-danger btn-sm text-white">Eliminar</a></td>
+                        <td><a href="#" onclick="eliminarReserva({{a.id}})" class="btn btn-danger btn-sm text-white">Eliminar</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -2,6 +2,29 @@
 
 {% block titulo %}Gestion Medicos{% endblock %}
 
+{% block js %}
+
+<script>
+    function eliminarMedico(id) {
+        Swal.fire({
+            "title": "¿Estas seguro?",
+            "text": "Esta accion no se puede deshacer",
+            "icon": "question",
+            "showCancelButton": "Cancelar",
+            "confirmButtonText": "Eliminar",
+            "reverseButtons": true,
+            "confirmButtonColor": "#dc3545",
+            "cancelButtonColor": "#007bff"
+        }).then(function(result){
+            if(result.isConfirmed){
+                window.location.href = "eliminarMedico/"+ id
+            }
+        })
+    }
+</script>
+
+{% endblock %}
+
 {% block contenido %}
 <div class="row">
     <div class="col=sm=12 col-md-6 col-lg-4 col-xl-4">
@@ -125,7 +148,7 @@
                                     <option value="" style="text-align:center">No Disponible</option>
                                 </select>
                             </td>
-                            <td><a href="eliminarMedico/{{m.id}}" class="btn btn-danger btn-block text-white">Eliminar</a></td>
+                             <td><a href="#" onclick="eliminarMedico({{m.id}})" class="btn btn-danger btn-block text-white">Eliminar</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

@@ -30,6 +30,7 @@
         </div>
     </nav>
     <div class="container py-4">
+
         {% block contenido %}
 
         {% endblock %}
@@ -44,6 +45,49 @@
         integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
         crossorigin="anonymous"></script>
     <script src="{% static 'js/' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <script>
+                Swal.fire({
+                    title: "¡Error!",
+                    text: "{{ message }}",
+                    icon: "error"
+                });
+            </script>
+        {% elif message.tags == 'success' %}
+            <script>
+                Swal.fire({
+                    title: "¡Listo!",
+                    text: "{{ message }}",
+                    icon: "success"
+                });
+            </script>
+        {% elif message.tags == 'warning' %}
+            <script>
+                Swal.fire({
+                    title: "¡Advertencia!",
+                    text: "{{ message }}",
+                    icon: "warning"
+                });
+            </script>
+        {% else %}
+            <script>
+                Swal.fire({
+                    title: "¡Mensaje!",
+                    text: "{{ message }}",
+                    icon: "info"
+                });
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+    {% block js %}
+
+    {% endblock %}
+    
 </body>
 
 </html>

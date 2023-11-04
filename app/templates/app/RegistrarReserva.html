@@ -11,22 +11,22 @@
             <div class="card-body text-center">
                 <form action="registrarReserva/" method="POST">{% csrf_token %}
                     <div class="form-group">
-                        <label><strong>Rut Profesional*</strong></label>
+                        <label><strong>Medico*</strong></label>
                         <br>
                         <select id="select-Profesional" name="select-Profesional" required>
                             <option value="" style="display:none"></option>
                             {% for m in Medicos %}
-                            <option value="{{m.id}}">{{m.RutProfesional}}</option>
+                            <option value="{{m.id}}">{{m.Nombres}} {{m.ApellidoP}} {{m.ApellidoM}}</option>
                             {% endfor %}
                         </select>
                     </div>
                     <div class="form-group">
-                        <label><strong>Rut Paciente*</strong></label>
+                        <label><strong>Paciente*</strong></label>
                         <br>
                         <select id="select-Paciente" name="select-Paciente" required>
                             <option value="" style="display:none"></option>
                             {% for p in Pacientes %}
-                            <option value="{{p.id}}">{{p.RutPaciente}}</option>
+                            <option value="{{p.id}}">{{p.Nombres}} {{p.ApellidoP}} {{p.ApellidoM}}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -68,7 +68,7 @@
                     <div class="form-group">
                         <label><Strong>Estado*</Strong></label>
                         <br>
-                        <input class="custom-input" type="text" id="txt-estado" name="txt-estado" class="form-control" placeholder="Ej: Confirmada/Activa" minlength="4" maxlength="12" required>
+                        <input class="custom-input" type="text" id="txt-estado" name="txt-estado" class="form-control" placeholder="Ej: Confirmada" minlength="4" maxlength="12" required>
                     </div>
                     <div class="form-group">
                         <label><Strong>Tarifa*</Strong></label>
