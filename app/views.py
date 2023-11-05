@@ -1,9 +1,11 @@
 """Rutas aplicacion"""
 
 from django.shortcuts import render, redirect
+from django.conf import settings
+from django.core.mail import send_mail
+from django.contrib import messages
 from .models import Profesional, Ciudad, Especialidad, Usuario
 from .models import Prevision, Paciente, Agenda, Bloque, Box
-from django.contrib import messages
 
 def home(request):
     """Ruta pagina home"""
@@ -132,12 +134,37 @@ def registrar_reserva_html(request):
     return render(request, 'app/RegistrarReserva.html', {"Medicos": medicos, 
     "Pacientes": pacientes, "Bloques": bloque, "Boxes": box})
 
+def enviar_correo(request, paciente_correo, rutp, rutpa, bloque, box, fecha_solicitud, hora_solicitud, fecha_atencion, estado, tarifa):
+    """Envio de correo agenda"""
+    message = f"""
+    Datos de la reserva:
+    Medico: {rutp.Nombres} {rutp.ApellidoP} {rutp.ApellidoM}
+    Paciente: {rutpa.Nombres} {rutpa.ApellidoP} {rutpa.ApellidoM}
+    Correo del paciente: {paciente_correo}
+    Bloque: {bloque.Descripcion}
+    Box: {box.Descripcion}
+    Fecha de solicitud: {fecha_solicitud}
+    Hora de solicitud: {hora_solicitud}
+    Fecha de atención: {fecha_atencion}
+    Estado: {estado}
+    Tarifa: {tarifa}
+    """
+
+    send_mail(
+        'Datos de la reserva',
+        message,
+        'javierv201@gmail.com', 
+        [paciente_correo],  # Enviar correo al correo del paciente
+        fail_silently=False,
+    )
+
 def nuevareserva(request):
     """Funcion registro de reserva"""
     rutp_id = request.POST.get('select-Profesional')
     rutp = Profesional.objects.get(id=rutp_id)
     rutpa_id = request.POST.get('select-Paciente')
     rutpa = Paciente.objects.get(id=rutpa_id)
+    paciente_correo = rutpa.Email
     bloque_id = request.POST.get('select-Bloque')
     bloque = Bloque.objects.get(id=bloque_id)
     box_id = request.POST.get('select-Box')
@@ -159,6 +186,7 @@ def nuevareserva(request):
         Estado=estado,
         Tarifa=tarifa
     )
+    enviar_correo(request, paciente_correo, rutp, rutpa, bloque, box, fecha_solicitud, hora_solicitud, fecha_atencion, estado, tarifa)
     messages.success(request, "Reserva agendada con exito")
     return redirect('Reservar')
 
