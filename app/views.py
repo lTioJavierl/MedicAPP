@@ -187,7 +187,7 @@ def nuevareserva(request):
         Tarifa=tarifa
     )
     enviar_correo(request, paciente_correo, rutp, rutpa, bloque, box, fecha_solicitud, hora_solicitud, fecha_atencion, estado, tarifa)
-    messages.success(request, "Reserva agendada con exito")
+    messages.success(request, f"Reserva agendada con exito y correo enviado a {paciente_correo} con los datos de la reserva")
     return redirect('Reservar')
 
 def eliminarreserva(request, id):
