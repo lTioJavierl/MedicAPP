@@ -1,11 +1,15 @@
 """Rutas aplicacion"""
 
 from django.shortcuts import render, redirect
-from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib import messages
 from .models import Profesional, Ciudad, Especialidad, Usuario
 from .models import Prevision, Paciente, Agenda, Bloque, Box
+
+def login(request):
+    """Ruta pagina login"""
+    usuarios = Usuario.objects.all()
+    return render(request, 'app/login.html', {"Usuarios": usuarios})
 
 def home(request):
     """Ruta pagina home"""

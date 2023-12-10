@@ -1,6 +1,6 @@
 """Urls asociados a las rutas de las paginas"""
 from django.urls import path
-from .views import home, medico, pacientes, reservar, index, registrar_reserva_html
+from .views import home, medico, pacientes, reservar, index, login, registrar_reserva_html
 from . import views
 
 urlpatterns = [
@@ -10,6 +10,7 @@ urlpatterns = [
     path('Pacientes', pacientes, name = "Pacientes"),
     path('Reservar', reservar, name = "Reservar"),
     path('Index', index, name = "Index"),
+    path('login', login, name = "Login"),
     path('RegistrarReserva', registrar_reserva_html, name = "RegistrarReserva"),
     path('registrarMedico/', views.registrarmedico),
     path('eliminarMedico/<id>', views.eliminarmedico),
